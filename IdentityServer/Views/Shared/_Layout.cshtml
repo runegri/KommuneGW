@@ -1,0 +1,62 @@
+﻿@using Microsoft.Extensions.Options;
+
+@{
+    string name = null;
+    if (!true.Equals(ViewData["signed-out"]))
+    {
+        var user = Context.User;
+        name = user?.FindFirst("name")?.Value;
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IdentityServer 4</title>
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
+    <link rel="stylesheet" href="~/lib/open-sans/open-sans.css">
+    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/styles.css" />
+</head>
+<body>
+    <header class="h-Main">
+        <div class="h-Main_Content">
+            <!-- TODO: Not sure what a back button should link to (ClientUri maybe?)  -->
+            @*<a href="https://www.nhn.no" class="h_Main_Content_Link" tabindex="100">
+                    <span class="fa fa-angle-left fa-lg" aria-hidden="true"></span>
+                    <span>@Localizer["Tilbake"]</span>
+                </a>*@
+
+            <div class="h-Main_Content_Placeholder">
+                <!-- TODO: Replace with ConfigurationOwnerName or ClientName? -->
+                <span class="h-Main_Content_Provider">Velg elektronisk ID</span>
+            </div>
+
+            <a href="" role="button" class="h-Menu_Trigger-mobile"><span class="fa fa-bars"></span></a>
+        </div>
+    </header>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer class="f-Main">
+        <div class="f-Main_Content">
+            <div class="f-Main_Logo" aria-hidden="true">
+                <a target="_blank" href="https://www.stavanger.kommune.no/">Stavanger kommune</a>
+            </div>
+            <div class="f-Main_Info">
+            </div>
+        </div>
+        <div class="buildversion">
+
+        </div>
+    </footer>
+    
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

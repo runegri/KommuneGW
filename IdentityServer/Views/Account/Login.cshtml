@@ -1,0 +1,175 @@
+@model LoginViewModel
+
+
+
+@if (Model.ExternalProviders.Any())
+{
+    <section class="Box">
+        <div class="Box-shadow">
+
+            <div class="Box_Section Box_Section-ServiceProvider">
+                <!-- TODO: Support for client.logo_uri? -->
+                <div class="Box_Section_Title">KLIENTNAVN@*@Model.ClientName*@</div>
+            </div>
+
+            <div class="Box_header">
+                <h1 class="Box_header-title with-logo">Velg elektronisk ID</h1>
+            </div>
+
+            <div class="Box_main">
+                <ul class="ln-List">
+                    @{
+                        var tabIndex = 3;
+                        foreach (var provider in Model.ExternalProviders)
+                        {
+                            <li class="list-group-item">
+                                                                                             
+                                <a id="@provider.DisplayName"
+                                   asp-controller="External"
+                                   asp-action="Challenge"
+                                   asp-route-provider="@provider.AuthenticationScheme"
+                                   asp-route-returnUrl="@Model.ReturnUrl"
+                                   class="ln-List_Element"
+                                   tabindex="(@tabIndex++)" title="Velg @provider.DisplayName">
+                                    <span class="ln-List_Element_Logo">
+                                        @switch (provider.AuthenticationScheme)
+                                        {
+                                            case Constants.AuthenticationSchemes.IdPorten:
+                                                <img src="~/img/logo_difi.png" alt="@provider.DisplayName" />
+                                                break;
+                                            case Constants.AuthenticationSchemes.StavangerKommune:
+                                                <img src="~/img/stavanger-kommune.png" alt="@provider.DisplayName" />
+                                                break; 
+                                            case Constants.AuthenticationSchemes.BergenKommune:
+                                                <img src="~/img/bergen-kommune.png" alt="@provider.DisplayName" />
+                                                break;
+                                            case Constants.AuthenticationSchemes.Google:
+                                                <img src="~/img/google.png" alt="@provider.DisplayName" />
+                                                break;
+                                        }
+                                    </span>
+                                    <div class="ln-List_Element_Service">
+                                        <span class="ln-List_Element_Service_Name">@provider.DisplayName</span>
+                                        <span class="ln-List_Element_Service_Info">Logg inn med @provider.DisplayName</span>
+                                    </div>
+
+                                </a>
+                            </li>
+
+                        }
+                    }
+
+
+                </ul>
+
+
+                <div class="Box_footer">
+                    @*<div class="Box_footer-links">
+                            <ul>
+                                <li>
+                                    <a target="_blank" href="http://helseid.nhn.no/nb/slik-skaffer-du-deg-elektronisk-id" tabindex="9">
+                                        <span>@Localizer["SlikSkafferDuEid"]</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>*@
+                    <div class="Box_footer-help">
+                        <a href="https://nhn.no/helseid" title="" target="_blank">
+                            <span class="fa fa-question-circle-o"></span>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+}
+
+@if (!Model.EnableLocalLogin && !Model.ExternalProviders.Any())
+{
+    <div class="alert alert-warning">
+        <strong>Invalid login request</strong>
+        There are no login schemes configured for this client.
+    </div>
+}
+
+
+
+@*
+    <div class="login-page">
+        <div class="page-header">
+            <h1>Login</h1>
+        </div>
+
+        <partial name="_ValidationSummary" />
+
+        <div class="row">
+
+            @if (Model.EnableLocalLogin)
+                                            {
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Local Login</h3>
+                        </div>
+                        <div class="panel-body">
+
+                            <form asp-route="Login">
+                                <input type="hidden" asp-for="ReturnUrl" />
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label asp-for="Username"></label>
+                                        <input class="form-control" placeholder="Username" asp-for="Username" autofocus>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Password"></label>
+                                        <input type="password" class="form-control" placeholder="Password" asp-for="Password" autocomplete="off">
+                                    </div>
+                                    @if (Model.AllowRememberLogin)
+                                            {
+                                        <div class="form-group login-remember">
+                                            <label asp-for="RememberLogin">
+                                                <input asp-for="RememberLogin">
+                                                <strong>Remember My Login</strong>
+                                            </label>
+                                        </div>
+                                    }
+                                    <div class="form-group">
+                                        <button class="btn btn-primary" name="button" value="login">Login</button>
+                                        <button class="btn btn-default" name="button" value="cancel">Cancel</button>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (Model.VisibleExternalProviders.Any())
+                                            {
+                <div class="col-md-6 col-sm-6 external-providers">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            @foreach (var provider in Model.VisibleExternalProviders)
+                                            {
+                                <div class="udelt-provider-container">
+                                    <a class="btn btn-default udelt-provider-button"
+                                       asp-controller="External"
+                                       asp-action="Challenge"
+                                       asp-route-provider="@provider.AuthenticationScheme"
+                                       asp-route-returnUrl="@Model.ReturnUrl">
+                                        @provider.DisplayName
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+
+            </div>
+*@
