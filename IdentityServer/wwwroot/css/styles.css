@@ -1,4 +1,4 @@
-﻿/* normalize.css v1.1.3 | MIT License | git.io/normalize */
+/* normalize.css v1.1.3 | MIT License | git.io/normalize */
 /* ==========================================================================
    HTML5 display definitions
    ========================================================================== */
@@ -152,7 +152,6 @@ dfn {
  * Known issue: no IE 6/7 normalization.
  */
 hr {
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   height: 0;
 }
@@ -404,8 +403,6 @@ input[type="radio"] {
 input[type="search"] {
   -webkit-appearance: textfield;
   /* 1 */
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
   /* 2 */
   box-sizing: border-box;
 }
@@ -445,28 +442,12 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-@-webkit-keyframes turnup {
-  0% {
-    transform: rotate(0);
-  }
-  100% {
-    transform: rotate(-180deg);
-  }
-}
 @keyframes turnup {
   0% {
     transform: rotate(0);
   }
   100% {
     transform: rotate(-180deg);
-  }
-}
-@-webkit-keyframes turndown {
-  0% {
-    transform: rotate(-180deg);
-  }
-  100% {
-    transform: rotate(0);
   }
 }
 @keyframes turndown {
@@ -1289,7 +1270,7 @@ table td:last-child {
   display: inline-block;
 }
 .Box_footer-links ul li:first-child {
-  margin-left: calc(-0.5em + 1px);
+  margin-left: calc(0.5em);
 }
 .Box_footer-help a {
   color: #222222;
@@ -1625,7 +1606,7 @@ label + input:focus,
 label + textarea:focus,
 .label + input:focus,
 .label + textarea:focus {
-  margin-top: calc(2rem / 4 - 1px);
+  margin-top: calc(-0.5rem);
 }
 input,
 button,
@@ -1671,7 +1652,7 @@ textarea:focus {
   border-width: 2px;
   border-color: #189D93;
   margin-left: -1px;
-  margin-bottom: calc(1rem / 2 - 1px);
+  margin-bottom: calc(-0.5rem);
 }
 .text {
   padding: 2px 8px;
@@ -1881,4 +1862,16 @@ textarea {
 }
 .label + .fm-RadioButtons {
   margin-top: 0.5em;
+}
+.consent-text {
+  padding: 0 1rem;
+}
+.btn-primary {
+  background-color: cornflowerblue;
+}
+.consent-remember > label {
+  margin-left: 1rem;
+}
+.consent-scopecheck {
+  margin: 0 1rem;
 }

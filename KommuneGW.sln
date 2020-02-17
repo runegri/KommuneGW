@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "IdentityServer\IdentityServer.csproj", "{79D1F107-F3AF-4A93-BF5D-49EF6A46E50E}"
 EndProject
@@ -114,6 +114,7 @@ Global
 		{C975883B-A789-489B-8613-3759B4B3A03D} = {D09964C8-6EF4-41D9-A7F4-9B6C32DEFA5F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+		LessCompiler = 79d1f107-f3af-4a93-bf5d-49ef6a46e50e
 		SolutionGuid = {84D5AF06-1243-46F1-9D58-70ED572832C3}
 	EndGlobalSection
 EndGlobal

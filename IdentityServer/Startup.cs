@@ -32,7 +32,11 @@ namespace IdentityServer
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            var servicesBuilder = services.AddControllersWithViews();
+            if (Environment.IsDevelopment())
+            {
+                servicesBuilder.AddRazorRuntimeCompilation();
+            }
 
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 

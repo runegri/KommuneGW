@@ -1,58 +1,33 @@
-@model ConsentViewModel
+﻿@model ConsentViewModel
 
-<div class="page-consent">
-    <div class="row page-header">
-        <div class="col-sm-10">
-            @if (Model.ClientLogoUrl != null)
-            {
-                <div class="client-logo"><img src="@Model.ClientLogoUrl"></div>
-            }
-            <h1>
-                @Model.ClientName
-                <small>is requesting your permission</small>
-            </h1>
+<section class="Box">
+    <div class="Box-shadow">
+
+        <div class="Box_Section Box_Section-ServiceProvider">
+            <div class="Box_Section_Title">Samtykke for pålogging til @Model.ClientName</div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-sm-8">
-            <partial name="_ValidationSummary" />
-            
+        <div class="Box_header">
+            <h1 class="Box_header-title with-logo">For å logge på må du gi samtykke til at applikasjonen kan lese dine opplysninger</h1>
+        </div>
+
+        <div class="Box_main">
+            <p class="consent-text">
+                For pålogging via ID-porten kan applikasjonen lese ditt fødselsnummer. For annnen pålogging kan applikasjonen lese ditt navn, telefonnummer og ditt brukernavn.
+                <br />
+                Dette er informasjon som er nødvendig for at applikasjonen skal fungere som forventet.
+            </p>
             <form asp-action="Index" class="consent-form">
                 <input type="hidden" asp-for="ReturnUrl" />
 
-                <div>Uncheck the permissions you do not wish to grant.</div>
-                
-                @if (Model.IdentityScopes.Any())
+                @foreach (var scope in Model.IdentityScopes)
                 {
-                    <div class="panel panel-default consent-buttons">
-                        <div class="panel-heading">
-                            <span class="glyphicon glyphicon-user"></span>
-                            Personal Information
-                        </div>
-                        <ul class="list-group">
-                            @foreach (var scope in Model.IdentityScopes)
-                            {
-                                <partial name="_ScopeListItem" model="@scope" />
-                            }
-                        </ul>
-                    </div>
+                    <input type="hidden" name="ScopesConsented" value="@scope.Name" />
                 }
 
-                @if (Model.ResourceScopes.Any())
+                @foreach (var scope in Model.ResourceScopes)
                 {
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <span class="glyphicon glyphicon-tasks"></span>
-                            Application Access
-                        </div>
-                        <ul class="list-group">
-                            @foreach (var scope in Model.ResourceScopes)
-                            {
-                                <partial name="_ScopeListItem" model="scope" />
-                            }
-                        </ul>
-                    </div>
+                    <input type="hidden" name="ScopesConsented" value="@scope.Name" />
                 }
 
                 @if (Model.AllowRememberConsent)
@@ -60,23 +35,115 @@
                     <div class="consent-remember">
                         <label>
                             <input class="consent-scopecheck" asp-for="RememberConsent" />
-                            <strong>Remember My Decision</strong>
+                            <strong>Ikke spør igjen</strong>
                         </label>
                     </div>
                 }
 
-                <div class="consent-buttons">
-                    <button name="button" value="yes" class="btn btn-primary" autofocus>Yes, Allow</button>
-                    <button name="button" value="no" class="btn">No, Do Not Allow</button>
-                    @if (Model.ClientUrl != null)
-                    {
-                        <a class="pull-right btn btn-default" target="_blank" href="@Model.ClientUrl">
-                            <span class="glyphicon glyphicon-info-sign"></span>
-                            <strong>@Model.ClientName</strong>
-                        </a>
-                    }
-                </div>
+                <p class="consent-text">
+                    <button name="button" value="yes" class="btn btn-primary" autofocus>Ja, jeg samtykker</button>
+                    <button name="button" value="no" class="btn">Nei, jeg samtykker ikke</button>
+                </p>
+
             </form>
         </div>
+
+        <div class="Box_footer">
+
+            <div class="Box_footer-help">
+                @*<a href="#help" title="" target="_blank">
+                        <span class="fa fa-question-circle-o"></span>
+                    </a>*@
+
+            </div>
+        </div>
     </div>
-</div>
+
+</section>
+
+
+
+
+
+
+
+@*<div class="page-consent">
+        <div class="row page-header">
+            <div class="col-sm-10">
+                @if (Model.ClientLogoUrl != null)
+                {
+                    <div class="client-logo"><img src="@Model.ClientLogoUrl"></div>
+                }
+                <h1>
+                    @Model.ClientName
+                    <small>is requesting your permission</small>
+                </h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-8">
+                <partial name="_ValidationSummary" />
+
+                <form asp-action="Index" class="consent-form">
+                    <input type="hidden" asp-for="ReturnUrl" />
+
+                    <div>Uncheck the permissions you do not wish to grant.</div>
+
+                    @if (Model.IdentityScopes.Any())
+                    {
+                        <div class="panel panel-default consent-buttons">
+                            <div class="panel-heading">
+                                <span class="glyphicon glyphicon-user"></span>
+                                Personal Information
+                            </div>
+                            <ul class="list-group">
+                                @foreach (var scope in Model.IdentityScopes)
+                                {
+                                    <partial name="_ScopeListItem" model="@scope" />
+                                }
+                            </ul>
+                        </div>
+                    }
+
+                    @if (Model.ResourceScopes.Any())
+                    {
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <span class="glyphicon glyphicon-tasks"></span>
+                                Application Access
+                            </div>
+                            <ul class="list-group">
+                                @foreach (var scope in Model.ResourceScopes)
+                                {
+                                    <partial name="_ScopeListItem" model="scope" />
+                                }
+                            </ul>
+                        </div>
+                    }
+
+                    @if (Model.AllowRememberConsent)
+                    {
+                        <div class="consent-remember">
+                            <label>
+                                <input class="consent-scopecheck" asp-for="RememberConsent" />
+                                <strong>Remember My Decision</strong>
+                            </label>
+                        </div>
+                    }
+
+                    <div class="consent-buttons">
+                        <button name="button" value="yes" class="btn btn-primary" autofocus>Yes, Allow</button>
+                        <button name="button" value="no" class="btn">No, Do Not Allow</button>
+                        @if (Model.ClientUrl != null)
+                        {
+                            <a class="pull-right btn btn-default" target="_blank" href="@Model.ClientUrl">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                                <strong>@Model.ClientName</strong>
+                            </a>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>*@
