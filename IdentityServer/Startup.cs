@@ -35,7 +35,9 @@ namespace IdentityServer
             var servicesBuilder = services.AddControllersWithViews();
             if (Environment.IsDevelopment())
             {
+#if DEBUG
                 servicesBuilder.AddRazorRuntimeCompilation();
+#endif
             }
 
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
