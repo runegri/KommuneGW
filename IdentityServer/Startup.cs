@@ -106,6 +106,8 @@ namespace IdentityServer
                      options.ClientId = idPorten.ClientId;
                      options.ClientSecret = idPorten.ClientSecret;
                      options.CallbackPath = "/signin-idporten";
+                     options.ResponseType = "code";
+                     options.UsePkce = true;
 
                      options.TokenValidationParameters = new TokenValidationParameters
                      {
